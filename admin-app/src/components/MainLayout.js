@@ -188,7 +188,7 @@ const MainLayout = () => {
                 <p className="mb-0">kapildahiya309@gmail.com</p>
               </div>
               <div
-                class="dropdown-menu"
+                className="dropdown-menu"
                 aria-labelledby="DropdownMenuLink"
               >
                 <li>

@@ -12,11 +12,11 @@ const brandRouter = require("./routes/brandRoute.route");
 const colorRouter = require("./routes/colorRoute.route");
 const couponRouter = require("./routes/couponRoute.route");
 const enquiryRouter = require("./routes/enquiryRoute.route");
+const cors = require("cors");
 
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const { notFound, 
-  errorHandler } = require("./middleware/errorHandler");
+const { notFound, errorHandler } = require("./middleware/errorHandler");
 
 const PORT = process.env.PORT || 5000;
 
@@ -33,8 +33,8 @@ connectDB()
   .catch((error) => {
     console.log("MONGO db connection failed !!!", error);
   });
-
-  app.use(morgan("dev"));
+app.use(cors());
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

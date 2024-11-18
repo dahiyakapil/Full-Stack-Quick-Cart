@@ -85,3 +85,7 @@ font-size: 13px;
   right: -6px;
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+}
