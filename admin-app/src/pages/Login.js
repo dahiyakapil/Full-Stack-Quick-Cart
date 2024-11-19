@@ -23,7 +23,6 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -32,12 +31,12 @@ const Login = () => {
   );
 
   useEffect(() => {
-    if (!user==null || isSuccess) {
-      navigate("admin")
+    if (!user == null || isSuccess) {
+      navigate("admin");
     } else {
-      console.error("not")
+      console.error("not");
     }
-  }, [user, isLoading, isError, isSuccess, message ]);
+  }, [user, isLoading, isError, isSuccess]);
 
   return (
     <>
@@ -53,6 +52,9 @@ const Login = () => {
         <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
           <h3 className="text-center title">Login</h3>
           <p className="text-center">Login to your account to continue</p>
+          <div className="error text-center">
+            {message.message == "Rejected" ? "You are not and Admin" : ""}
+          </div>
           <form action="" onSubmit={formik.handleSubmit}>
             <CustomInput
               type="text"
@@ -62,7 +64,7 @@ const Login = () => {
               val={formik.values.email}
               onCh={formik.handleChange("email")}
             />
-            <div className="error">
+            <div className="error mt-2">
               {formik.touched.email && formik.errors.email ? (
                 <div>{formik.errors.email}</div>
               ) : null}
@@ -76,7 +78,7 @@ const Login = () => {
               val={formik.values.password}
               onCh={formik.handleChange("password")}
             />
-            <div className="error">
+            <div className="error mt-2">
               {formik.touched.password && formik.errors.password ? (
                 <div>{formik.errors.password}</div>
               ) : null}
