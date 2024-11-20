@@ -7,7 +7,7 @@ router.post("/",authMiddleware, isAdmin, createBrand)
 router.put("/:id",authMiddleware, isAdmin, updateBrand)
 router.delete("/:id",authMiddleware, isAdmin, deleteBrand)
 
-router.get("/",authMiddleware, isAdmin, getAllBrand)
+router.get("/",getAllBrand)
 router.get("/:id",getBrand)
 
 
