@@ -498,12 +498,25 @@ const getOrders = asyncHanlder(async (req, res) => {
   const { _id } = req.user;
   validateMongoDbID(_id);
   try {
-    const userOrders = await Order.findOne({ orderby: _id }).populate(
-      "products.product"
-    );
+    const userOrders = await Order.findOne({ orderby: _id })
+      .populate("products.product")
+      .populate("orderby");
     res.json(userOrders);
   } catch (error) {
     console.log("Error in getOrders controller");
+    throw new Error(error);
+  }
+});
+const getAllOrders = asyncHanlder(async (req, res) => {
+  try {
+    // const allOrders = await Order.find().populate("products.product").populate("orderby").exec();
+    // res.json(allOrders);
+    const allOrders = await Order.find()
+      .populate("products.product")
+      .populate("orderby");
+    res.json(allOrders);
+  } catch (error) {
+    console.log("Error in getAllOrders controller");
     throw new Error(error);
   }
 });
@@ -553,5 +566,6 @@ module.exports = {
   applyCoupon,
   createOrder,
   getOrders,
+  getAllOrders,
   updateOrderStatus,
 };

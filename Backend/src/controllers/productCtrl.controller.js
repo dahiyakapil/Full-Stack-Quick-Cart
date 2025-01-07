@@ -5,7 +5,10 @@ const User = require("../models/user.model");
 const validateMongoDbID = require("../utils/validateMongoDbID");
 
 const fs = require("fs");
-const { cloudinaryUploadImg, cloudinaryDeleteImg } = require("../utils/cloudinary");
+const {
+  cloudinaryUploadImg,
+  cloudinaryDeleteImg,
+} = require("../utils/cloudinary");
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -218,39 +221,42 @@ const rating = asyncHandler(async (req, res) => {
   }
 });
 
-const uploadImages = asyncHandler(async (req, res) => {
-  try {
-    console.log(req.files);
-    const uploader = (path) => cloudinaryUploadImg(path, "images")
-    const urls = []; // create a blank array
-    const files = req.files;
+// sepearte api for uploading images ----> uploadCtrl new controller
+// const uploadImages = asyncHandler(async (req, res) => {
+//   try {
+//     console.log(req.files);
+//     const uploader = (path) => cloudinaryUploadImg(path, "images")
+//     const urls = []; // create a blank array
+//     const files = req.files;
 
-    for (const file of files) {
-      const { path } = file;
-      const newPath = await uploader(path);
-      urls.push(newPath);
-      fs.unlinkSync(path);
-    }
-    // AS WE NEED ONLY URLS
-    const images = urls.map((file) => {
-      return file;
-    });
-    res.json(images);
-  } catch (error) {
-    console.log("Error in uploadImages Controller");
-    throw new Error(error);
-  }
-});
-const deleteImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deleted = cloudinaryDeleteImg(id, "images");
-    res.json({message: "Image Deleted successfully"})
-  } catch (error) {
-    console.log("Error in deleteImages Controller");
-    throw new Error(error);
-  }
-});
+//     for (const file of files) {
+//       const { path } = file;
+//       const newPath = await uploader(path);
+//       urls.push(newPath);
+//       fs.unlinkSync(path);
+//     }
+//     // AS WE NEED ONLY URLS
+//     const images = urls.map((file) => {
+//       return file;
+//     });
+//     res.json(images);
+//   } catch (error) {
+//     console.log("Error in uploadImages Controller");
+//     throw new Error(error);
+//   }
+// });
+
+// sepearte api for uploading images ----> uploadCtrl new controller
+// const deleteImages = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const deleted = cloudinaryDeleteImg(id, "images");
+//     res.json({message: "Image Deleted successfully"})
+//   } catch (error) {
+//     console.log("Error in deleteImages Controller");
+//     throw new Error(error);
+//   }
+// });
 
 module.exports = {
   createProduct,
@@ -260,6 +266,6 @@ module.exports = {
   deleteProduct,
   addToWishlist,
   rating,
-  uploadImages,
-  deleteImages
+  // uploadImages,
+  // deleteImages,
 };

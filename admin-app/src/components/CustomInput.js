@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "antd";
 
 const CustomInput = (props) => {
-  const { type,label, i_id, i_class, name, val, onCh, onBl } = props;
+  const { type,label, i_id, i_class, name, val, onChng, onBlr } = props;
   return (
     <div className="form-floating mt-3">
       <input
@@ -12,8 +12,8 @@ const CustomInput = (props) => {
         placeholder={label}
         name={name}
         value={val}
-        onChange={onCh}
-        onBlur={onCh}
+        onChange={onChng}
+        onBlur={onBlr}
       />
       <label htmlFor={label}>{label}</label>
     </div>

@@ -12,6 +12,7 @@ const brandRouter = require("./routes/brandRoute.route");
 const colorRouter = require("./routes/colorRoute.route");
 const couponRouter = require("./routes/couponRoute.route");
 const enquiryRouter = require("./routes/enquiryRoute.route");
+const uploadRouter = require("./routes/uploadRoute.route");
 const cors = require("cors");
 
 const cookieParser = require("cookie-parser");
@@ -49,6 +50,7 @@ app.use("/api/brand", brandRouter);
 app.use("/api/color", colorRouter);
 app.use("/api/coupon", couponRouter);
 app.use("/api/enquiry", enquiryRouter);
+app.use("/api/upload", uploadRouter);
 
 // middlwares
 app.use(notFound);
