@@ -13,7 +13,9 @@ import "react-widgets/styles.css";
 import Dropzone from "react-dropzone";
 import { uploadImg } from "../features/upload/uploadSlice";
 import { delImg } from "../features/upload/uploadSlice";
-import { createProduct } from "../features/product/productService";
+import { createProducts } from "../features/product/productService";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 let schema = Yup.object().shape({
   title: Yup.string().required("Title is Required"),
@@ -21,6 +23,7 @@ let schema = Yup.object().shape({
   price: Yup.number().required("Price is Required"),
   brand: Yup.string().required("Brand is Required"),
   category: Yup.string().required("Category is Required"),
+  tags: Yup.string().required("Tag is Required"),
   color: Yup.array()
     .min(1, "Pick atleast one color")
     .required("color are Required"),
@@ -30,6 +33,7 @@ let schema = Yup.object().shape({
 const Addproduct = () => {
   const dispatch = useDispatch();
   // const [brand, setBrand] = useState([]);
+  const navigate = useNavigate();
   const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
 
@@ -43,6 +47,20 @@ const Addproduct = () => {
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
+  const newProduct = useSelector((state) => state.product);
+
+  const { isSuccess, isLoading, isError, createdProduct } = newProduct;
+
+  useEffect(() => {
+    console.log(isSuccess);
+    if (isSuccess && createdProduct) {
+      console.log(isSuccess);
+      toast.success("Product Added Successfully!");
+    }
+    if (isError) {
+      toast.error("something Went Wrong!");
+    }
+  }, [isSuccess, isLoading, isError]);
 
   const coloropt = [];
   colorState.forEach((color) => {
@@ -75,12 +93,25 @@ const Addproduct = () => {
       color: "",
       quantity: "",
       images: "",
+      tags: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
       // dispatch(login(values));
       // alert(JSON.stringify(values));
-      dispatch(createProduct(values));
+
+      // dispatch(createProduct(values));
+      // formik.resetForm();
+      // setColor(null);
+      // setTimeout(() => {
+      //   navigate("/admin/list-product");
+      // }, 3000);
+      dispatch(createProducts(values));
+      formik.resetForm();
+      setColor(null);
+      setTimeout(() => {
+        navigate("admin/list-product");
+      });
     },
   });
   const [desc, setDesc] = useState();
@@ -176,6 +207,25 @@ const Addproduct = () => {
               {formik.touched.category && formik.errors.category}
             </div>
 
+            <select
+              name="tags"
+              onChange={formik.handleChange("tags")}
+              onBlur={formik.handleBlur("tags")}
+              value={formik.values.tags}
+              id=""
+              className="form-control py-3 mb-3"
+            >
+              <option value="" disabled>
+                Select tags
+              </option>
+              <option value="featured">Featured</option>
+              <option value="popular">Popular</option>
+              <option value="special">Special</option>
+            </select>
+            <div className="error my-3">
+              {formik.touched.tags && formik.errors.tags}
+            </div>
+
             <Select
               mode="multiple"
               allowClear
@@ -235,10 +285,7 @@ const Addproduct = () => {
               })}
             </div>
 
-            <button
-              className="btn btn-success border-0 rounded-3 my-5"
-              type="submit"
-            >
+            <button type="submit" className="button w-100 my-4 px-3">
               Add Product
             </button>
           </form>

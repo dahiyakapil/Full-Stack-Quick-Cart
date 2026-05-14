@@ -10,19 +10,31 @@ const {
   cloudinaryDeleteImg,
 } = require("../utils/cloudinary");
 
+// const createProduct = asyncHandler(async (req, res) => {
+//   try {
+//     if (req.body.title) {
+//       req.body.slug = slugify(req.body.title); // slugify helps in trim space
+//     }
+//     const newProduct = await Product.create(req.body);
+//     res.json(newProduct);
+//   } catch (error) {
+//     console.log("Error in createProduct");
+//     throw new Error(error);
+//   }
+// });
+
 const createProduct = asyncHandler(async (req, res) => {
   try {
     if (req.body.title) {
-      req.body.slug = slugify(req.body.title); // slugify helps in trim space
+      req.body.slug = slugify(req.body.title);
     }
     const newProduct = await Product.create(req.body);
     res.json(newProduct);
+
   } catch (error) {
-    console.log("Error in createProduct");
     throw new Error(error);
   }
 });
-
 const getProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {

@@ -6,14 +6,20 @@ export const getProducts = async() => {
     const response = await axios.get(`${base_url}product/`);
     return response.data;
 }
-export const createProduct = async(product) => {
+// export const createProduct = async(product) => {
+//     const response = await axios.post(`${base_url}product/`, product, config);
+//     return response.data;
+// }
+
+export const createProducts = async (product) => {
     const response = await axios.post(`${base_url}product/`, product, config);
+  
     return response.data;
-}
+  };
 
 const productService = {
     getProducts,
-    createProduct
+    createProducts
 }
 
 export default productService;

@@ -151,8 +151,8 @@ const logout = asyncHanlder(async (req, res) => {
 // Get All Users
 const getAllUsers = asyncHanlder(async (req, res) => {
   try {
-    const getUsers = await User.find();
-    res.json(getUsers);
+    const getUsers = await User.find().select("-password -refreshToken -__v -createdAt -updatedAt -role -blocked -wishlist -address -cart");
+    res.json({message: "All Users List", getUsers});
   } catch (error) {
     console.log("Error in getAllUsers Controller");
     throw new Error(error);
@@ -165,7 +165,11 @@ const getSingleUser = asyncHanlder(async (req, res) => {
   validateMongoDbID(id);
   // console.log(id) we are getting id
   try {
-    const getaUser = await User.findByIdAndDelete(id);
+    const getaUser = await User.findById(id);
+
+    if (!getaUser) {
+      throw new Error("User not found");
+    }
     res.json({
       getaUser,
     });

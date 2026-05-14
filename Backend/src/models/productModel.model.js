@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema(
          url: String
      }
     ],
-    tags: [], // like popular, featured
+    tags: String, // like popular, featured
     color: [], // Before it was string
     ratings: [
       {

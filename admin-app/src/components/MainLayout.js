@@ -16,6 +16,8 @@ import { FaClipboardList, FaBloggerB } from "react-icons/fa";
 import { ImBlog } from "react-icons/im";
 import { Outlet } from "react-router-dom";
 import { IoIosNotifications } from "react-icons/io";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const { Header, Sider, Content } = Layout;
 
@@ -178,7 +180,6 @@ const MainLayout = () => {
                 />
               </div>
               <div
-                
                 role="button"
                 id="dropdownMenuLink"
                 data-bs-toggle="dropdown"
@@ -187,21 +188,25 @@ const MainLayout = () => {
                 <h5 className="mb-0">Kapil</h5>
                 <p className="mb-0">kapildahiya309@gmail.com</p>
               </div>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="DropdownMenuLink"
-              >
+              <div className="dropdown-menu" aria-labelledby="DropdownMenuLink">
                 <li>
-                  <Link className="dropdown-item py-1 mb-1" style={{height:"auto", lineHeight:"20px"}} to="/">
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
                     VIew Profile
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item py-1 mb-1" style={{height:"auto", lineHeight:"20px"}} to="/">
+                  <Link
+                    className="dropdown-item py-1 mb-1"
+                    style={{ height: "auto", lineHeight: "20px" }}
+                    to="/"
+                  >
                     Signout
                   </Link>
                 </li>
-                
               </div>
             </div>
           </div>
@@ -215,6 +220,17 @@ const MainLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>

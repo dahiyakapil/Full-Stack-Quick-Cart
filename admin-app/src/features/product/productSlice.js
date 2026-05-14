@@ -23,7 +23,6 @@ export const createProducts = createAsyncThunk(
   }
 );
 
-
 const initialState = {
   products: [],
   isError: false,
@@ -43,6 +42,7 @@ export const productSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isError = false;
         state.isSuccess = true;
         state.products = action.payload;
       })
@@ -50,12 +50,13 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        state.products = action.error;
+        state.message = action.error;
       })
       .addCase(createProducts.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(createProducts.fulfilled, (state, action) => {
+        console.log("API Response:", action.payload); // Debugging line
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;

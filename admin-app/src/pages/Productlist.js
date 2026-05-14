@@ -5,6 +5,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/productSlice";
 import { Link } from "react-router-dom";
+import { FaRegEdit } from "react-icons/fa";
 
 const columns = [
   {
@@ -48,25 +49,53 @@ const Productlist = () => {
   }, []);
 
   const productState = useSelector((state) => state.product.products);
+  // const data1 = [];
+  // for (let i = 0; i < productState.length; i++) {
+  //   data1.push({
+  //     key: i + 1,
+  //     title: productState[i].title,
+  //     brand: productState[i].brand,
+  //     category: productState[i].category,
+  //     color: productState[i].color,
+  //     price: `$ ${productState[i].price}`,
+  //     action: (
+  //       <>
+  //         <Link to="/" className="fs-3 text-danger">
+  //           {" "}
+  //           <BiEdit />{" "}
+  //         </Link>
+  //         <Link to="/" className="ms-3 fs-3 text-danger">
+  //           {" "}
+  //           <AiFillDelete />{" "}
+  //         </Link>
+  //       </>
+  //     ),
+  //   });
+  // }
+
   const data1 = [];
   for (let i = 0; i < productState.length; i++) {
     data1.push({
       key: i + 1,
-      title: productState[i].title,
       brand: productState[i].brand,
       category: productState[i].category,
-      color: productState[i].color,
-      price: `$ ${productState[i].price}`,
-      action: (
+      title: productState[i].title,
+      price: `₹ ${productState[i].price}`,
+      image: productState[i]?.images[0]?.url,
+     
+      actions: (
         <>
-          <Link to="/" className="fs-3 text-danger">
-            {" "}
-            <BiEdit />{" "}
+          <Link to={`/admin/product/${productState[i]?._id}`}>
+            <FaRegEdit className="fs-3 text-danger" />
           </Link>
-          <Link to="/" className="ms-3 fs-3 text-danger">
-            {" "}
-            <AiFillDelete />{" "}
-          </Link>
+          <button
+            className="ms-3 fs-3 text-danger border-0 bg-transparent"  
+          >
+            <AiFillDelete />
+          </button>
+          {/* <Link className="ms-3 fs-3 text-danger" to="/admin">
+            <AiFillDelete />
+          </Link> */}
         </>
       ),
     });
